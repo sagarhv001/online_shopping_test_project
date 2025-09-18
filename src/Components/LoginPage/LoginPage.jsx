@@ -1,10 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import userdata from '../../userdata.js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const LoginPage = () => {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            navigate('/products');
+        }
+    }, [navigate]);
 
     const handleNavigation = () => {
         const user = userdata.find(user => user.username === credentials.username && user.password === credentials.password);

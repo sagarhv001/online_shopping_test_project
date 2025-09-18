@@ -1,10 +1,18 @@
 import Navbar from "../NavBar/Navbar";
 import products from "../../productcatalog";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ProductPage = () => {
     const [cart, setCart] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            navigate('/');
+        }
+    }, [navigate]);
 
     const addToCart = (product) => {
         setCart(prevCart => {
