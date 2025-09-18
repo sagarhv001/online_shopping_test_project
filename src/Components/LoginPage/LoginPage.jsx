@@ -12,7 +12,7 @@ const LoginPage = () => {
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('user', JSON.stringify(user));
             window.dispatchEvent(new Event('loginChange'));
-            navigate('/contact', { state: { user } });
+            navigate('/products', { state: { user } });
         } else {
             alert('Invalid credentials');
         }
