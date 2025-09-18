@@ -29,11 +29,9 @@ const ProductPage = () => {
                 } else if (existingItem.quantity === 1) {
                     return prevCart.filter(item => item.id !== productId);
                 } else {
-                    alert("No items to remove");
-                    return prevCart;
+                    return prevCart.filter(item => item.id !== productId);
                 }
             } else {
-                alert("Item not in cart");
                 return prevCart;
             }
         });
@@ -41,6 +39,10 @@ const ProductPage = () => {
 
     const getTotalItems = () => {
         return cart.reduce((total, item) => total + item.quantity, 0);
+    };
+
+    const isInCart = (productId) => {
+        return cart.some(item => item.id === productId);
     };
 
     const filteredProducts = products.filter(product =>
@@ -67,7 +69,7 @@ const ProductPage = () => {
                             <p>Price: ₹{product.price}</p>
                             <p>Category: {product.category}</p>
                             <button style={{ backgroundColor: '#094e00ff', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }} onClick={() => addToCart(product)}>Add to Cart</button>
-                            <button style={{ backgroundColor: '#850b18ff', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }} onClick={() => removeFromCart(product.id)}>Remove from Cart</button>
+                            {isInCart(product.id) && <button style={{ backgroundColor: '#850b18ff', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer' }} onClick={() => removeFromCart(product.id)}>Remove from Cart</button>}
                         </div>
                     ))
                 ) : (
